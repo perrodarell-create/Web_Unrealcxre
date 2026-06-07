@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unrealcxre - Official Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Share+Tech+Mono&family=VT323&family=UnifrakturMaguntia&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background Effects -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="motion-stickers" aria-hidden="true">
+        <div class="motion-sticker sticker-amen">AMEN<br>BREAK</div>
+        <div class="motion-sticker sticker-bpm">175<br>BPM</div>
+        <div class="motion-sticker sticker-dnb">DNB<br>SIGNAL</div>
+        <div class="motion-sticker sticker-glitch">ERROR<br>CORE</div>
+        <div class="wave-sticker sticker-wave"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- Entry Portal -->
+    <section id="entry-screen" class="entry-screen" aria-label="Choose site mode">
+        <video class="entry-video" autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video_intro/intro_webunreal.mp4" type="video/mp4">
+        </video>
+        <div class="entry-vignette" aria-hidden="true"></div>
+        <div class="entry-content">
+            <h2 class="entry-title" data-text="unrealcxre">unrealcxre</h2>
+            <p class="entry-kicker">Recorded by unreal archive</p>
+            <div class="entry-actions">
+                <button class="entry-choice" type="button" data-entry-target="unrealcxre">
+                    <span>New Story</span>
+                    <strong>Unrealcxre</strong>
+                </button>
+                <button class="entry-choice alt" type="button" data-entry-target="artcxre">
+                    <span>Chapter Selection</span>
+                    <strong>Artcxre</strong>
+                </button>
+            </div>
+            <p class="entry-footer">Press any file to enter</p>
+        </div>
+    </section>
+
+    <!-- Background Audio -->
+    <audio id="bg-audio" preload="metadata">
+        <source src="assets/audio/xanaxsober2/Superstition Is Cruel FT. Mykoll.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="track-audio" preload="metadata"></audio>
+
+    <!-- Controls Container (Right side) -->
+    <div class="controls-container" aria-label="Audio controls">
+        <!-- Play/Mute Button -->
+        <button id="audio-toggle" class="retro-btn" type="button" aria-pressed="false">
+            <span class="icon">PLAY AUDIO</span>
+        </button>
+
+        <!-- Production Hub -->
+        <div class="production-hub">
+            <button class="hub-logo-btn" type="button" aria-label="Open production playlist">
+                <img src="assets/logos/fl_studio.png" alt="FL Studio" class="hub-logo" id="hub-fl">
+            </button>
+            <button class="hub-logo-btn" type="button" aria-label="Open production playlist">
+                <img src="assets/logos/bandlab.png" alt="BandLab" class="hub-logo" id="hub-bandlab">
+            </button>
+
+            <!-- Mini-playlist popups -->
+            <div class="mini-playlist" id="mini-playlist" aria-hidden="true" hidden>
+                <button class="mini-card" type="button" data-target="pain-post-mortem">
+                    <img src="assets/covers/Pain Post Mortem.jpg" alt="Pain Post Mortem">
+                    <span>Pain Post Mortem</span>
+                </button>
+                <button class="mini-card" type="button" data-target="unreal-wxrld">
+                    <img src="assets/covers/unreal wxrld.jpeg" alt="Unreal Wxrld">
+                    <span>Unreal Wxrld</span>
+                </button>
+                <button class="mini-card" type="button" data-target="canibalism-unbreakcore">
+                    <img src="assets/covers/CXnibalism.jpg" alt="Canibalism Unbreakcore">
+                    <span>Cxnibalism Unbreakcore</span>
+                </button>
+                <button class="mini-card" type="button" data-target="vhs-rave">
+                    <img src="assets/covers/VHS-rave.jpg" alt="VHS Rave">
+                    <span>VHS-Rave</span>
+                </button>
+                <button class="mini-card" type="button" data-target="xanax-sober-pt2">
+                    <img src="assets/covers/xanax sober.jpg" alt="Xanax Sober Pt2">
+                    <span>Xanax Sober Pt. 2</span>
+                </button>
+                <button class="mini-card" type="button" data-target="kerosene-and-bleach">
+                    <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach">
+                    <span>Kerosene & Bleach</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="site-switcher" aria-label="Site sections">
+        <button class="site-switch active" type="button" data-view-target="unrealcxre">Unrealcxre</button>
+        <button class="site-switch" type="button" data-view-target="artcxre">Artcxre</button>
+    </nav>
+
+    <header class="hero page-panel active" data-page="unrealcxre">
+        <div class="banner-container">
+            <h1 class="logo">UNREALCXRE</h1>
+        </div>
+    </header>
+
+    <main class="page-panel active" data-page="unrealcxre">
+        <section class="section smart-links-section">
+            <h2 class="section-title">PORTAL</h2>
+            <div class="links-container">
+                <a href="https://www.youtube.com/@unrealcoreweird/featured" target="_blank" rel="noopener noreferrer"
+                    class="smart-link">YouTube</a>
+                <a href="https://soundcloud.com/ninincxre" target="_blank" rel="noopener noreferrer" class="smart-link">SoundCloud</a>
+                <a href="https://open.spotify.com/artist/2xwxc8qSi3WIDSTtFGXgyo?si=f-6TY_JMQMKtSWjn6AGpxg"
+                    target="_blank" rel="noopener noreferrer" class="smart-link">Spotify</a>
+                <a href="https://music.apple.com/es/artist/unrealcxre/1774594193" target="_blank" rel="noopener noreferrer"
+                    class="smart-link">Apple Music</a>
+                <a href="https://blucocainelines.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="smart-link">Bandcamp</a>
+            </div>
+        </section>
+
+        <section class="section discography-section">
+            <h2 class="section-title">ARCHIVES</h2>
+            <div class="cards-container">
+
+                <article class="disco-card" id="pain-post-mortem">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/Pain Post Mortem.jpg" alt="Pain Post Mortem Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">Pain Post Mortem</h3>
+                            <span class="release-type">Album</span>
+                        </div>
+                        <p class="album-meta">Nov 4, 2024 | 12 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'Pain Post Mortem' was the first album created under the Unrealcxre name, officially released on November 4, 2024. Its sound is unique and experimental inside the discography, using granular textures and aggressive breaks. With collaborations from Doke and Gordo Acido, the album became one of the highlighted releases, with several songs passing one thousand YouTube views."
+                                data-es="'Pain Post Mortem' fue el primer álbum creado bajo el nombre de Unrealcxre, lanzado oficialmente el 4 de noviembre de 2024. Su sonido es único y experimental dentro de la discografía, usando texturas granulares y breaks agresivos. Con colaboraciones de Doke y Gordo Acido, el álbum se volvió uno de los lanzamientos destacados, con varias canciones superando las mil vistas en YouTube.">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-pain-post-mortem">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-pain-post-mortem">
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Sacrifice Intro.wav"><button class="play-btn" type="button" aria-label="Play Sacrifice Intro">▶</button> 1. Sacrifice (Intro)</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Weird.exe.wav"><button class="play-btn" type="button" aria-label="Play Weird.exe">▶</button> 2. Weird.exe</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Be Born.wav"><button class="play-btn" type="button" aria-label="Play Be Born">▶</button> 3. Be Born</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Bruhhh.wav"><button class="play-btn" type="button" aria-label="Play Bruhhh">▶</button> 4. Bruhhh</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/BREAKCORE CYBER DUMB.wav"><button class="play-btn" type="button" aria-label="Play Breakcore Cyber Dumb">▶</button> 5. Breakcore Cyber Dumb</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/STUPID GVRL.wav"><button class="play-btn" type="button" aria-label="Play Stupid Gvrl">▶</button> 6. Stupid Gvrl</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/病気.wv.wav"><button class="play-btn" type="button" aria-label="Play Byouki Wv">▶</button> 7. 病気.Wv</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Kunigami.wav"><button class="play-btn" type="button" aria-label="Play Kunigami">▶</button> 8. Kunigami</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/RAIN AWAY 4 ME.wav"><button class="play-btn" type="button" aria-label="Play Rain Away for Me">▶</button> 9. Rain Away for Me</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/13LAIN.wav"><button class="play-btn" type="button" aria-label="Play 13 Lain">▶</button> 10. 13/LAIN</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Damaged circvits Feat. Doke.wav"><button class="play-btn" type="button" aria-label="Play Damaged Circvits">▶</button> 11. Damaged Circvits</li>
+                            <li class="track-item" data-src="assets/audio/Pain Post Mortem/Stupid Acid Feat. Gordo Acido.wav"><button class="play-btn" type="button" aria-label="Play Stupid Acid">▶</button> 12. Stupid Acid</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Card 1 -->
+                <article class="disco-card" id="unreal-wxrld">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/unreal wxrld.jpeg" alt="Unreal Wxrld Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">Unreal Wxrld</h3>
+                            <span class="release-type">Album</span>
+                        </div>
+                        <p class="album-meta">Dec 12, 2024 | 10 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'Unreal Wxrld' is a defining DnB and Breakcore project crafted in late 2024. Dropped on December 12, 2024, the same day as Unrealcxre’s birthday, the album carries a personal weight. As the most streamed album in the catalog — surpassing 10K views on YouTube — it stands as a milestone release. It captures a raw phase, reflecting themes of love and vulnerability through experimental sound design. Fun fact: Unrealcxre’s favorite tracks from the project are &quot;U N R E A L,&quot; &quot;THIS IS MINE?&quot;, and &quot;U HAVE ME THINKING SHIT.&quot; The latter was dedicated to their partner at the time, featuring a soft yet immersive melody layered with a synthetic bassline and amen breaks. At one point, the track abruptly shifts its rhythm for a few seconds — a subtle reference to another musical project that uses the melody heard in that moment."
+                                data-es="'Unreal Wxrld' es un proyecto definitorio de DnB y Breakcore creado a finales de 2024. Lanzado el 12 de diciembre de 2024, el mismo día del cumpleaños de Unrealcxre, el álbum tiene un peso personal. Como el álbum más reproducido en el catálogo —superando las 10K vistas en YouTube— se erige como un lanzamiento histórico. Captura una fase cruda, reflejando temas de amor y vulnerabilidad a través de un diseño de sonido experimental. Dato curioso: las canciones favoritas de Unrealcxre del proyecto son &quot;U N R E A L,&quot; &quot;THIS IS MINE?&quot;, y &quot;U HAVE ME THINKING SHIT.&quot; Esta última fue dedicada a su pareja de ese momento, presentando una melodía suave pero inmersiva con capas de bajos sintéticos y amen breaks. En un punto, la canción cambia abruptamente su ritmo por unos segundos — una sutil referencia a otro proyecto musical que usa la melodía escuchada en ese momento.">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-unreal-wxrld">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-unreal-wxrld">
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/Never Anything.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Never Anything">▶</button> 1. Never Anything</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/THIS IS MINE.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play THIS IS MINE">▶</button> 2. THIS IS MINE</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/Dissonance Pirate.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Dissonance Pirate">▶</button> 3. Dissonance Pirate</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/U are unreal.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play U are unreal">▶</button> 4. U are unreal</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/Envy in the crowd.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Envy in the crowd">▶</button> 5. Envy in the crowd</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/U N R E A L.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play U N R E A L">▶</button> 6. U N R E A L</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/Heroin in my immune system.mp3">
+                                <button class="play-btn" type="button" aria-label="Play Heroin in my immune system">▶</button> 7. Heroin in my immune system
+                            </li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/EVERYONE DESPISES YOU.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play EVERYONE DESPISES YOU">▶</button> 8. EVERYONE DESPISES YOU</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/unrerrated175.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play unrerrated175">▶</button> 9. unrerrated175</li>
+                            <li class="track-item" data-src="assets/audio/unrealwxrld/YOU HAVE ME THINKING SHIT.mp3">
+                                <button class="play-btn" type="button" aria-label="Play YOU HAVE ME THINKING SHIT">▶</button> 10. YOU HAVE ME THINKING SHIT
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="disco-card" id="canibalism-unbreakcore">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/CXnibalism.jpg" alt="Canibalism Unbreakcore Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">Cxnibalism Unbreakcore</h3>
+                            <span class="release-type ep">EP</span>
+                        </div>
+                        <p class="album-meta">Dec 31, 2024 | 6 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'Cxnibalism Unbreakcore' is an important EP in Unrealcxre's career because it marks the transition from BandLab to FL Studio. The project has more defined samples and amen breaks, sharpening the breakcore direction that would follow. It was officially released on December 31, 2024."
+                                data-es="'Cxnibalism Unbreakcore' es un EP importante en la carrera de Unrealcxre porque marca la transición de usar BandLab a trabajar en FL Studio. El proyecto tiene samples y amen breaks más definidos, afilando la dirección breakcore que vendría después. Salió oficialmente el 31 de diciembre de 2024.">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-canibalism-unbreakcore">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-canibalism-unbreakcore">
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/Lysoform.wav"><button class="play-btn" type="button" aria-label="Play Lysoform">▶</button> 1. Lysoform</li>
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/letmetonight.wav"><button class="play-btn" type="button" aria-label="Play Letmetonight">▶</button> 2. Letmetonight</li>
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/lovealchy.wav"><button class="play-btn" type="button" aria-label="Play Lovealchy">▶</button> 3. Lovealchy</li>
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/Old Skool.wav"><button class="play-btn" type="button" aria-label="Play Old Skool">▶</button> 4. Old Skool</li>
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/XXL ORBITXL.wav"><button class="play-btn" type="button" aria-label="Play Xxl Orbitxl">▶</button> 5. Xxl Orbitxl</li>
+                            <li class="track-item" data-src="assets/audio/Canibalism Unbreakcore/DIGIMON UNBREAKCORE.wav"><button class="play-btn" type="button" aria-label="Play Digimon Unbreakcore">▶</button> 6. Digimon Unbreakcore</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="disco-card" id="vhs-rave">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/VHS-rave.jpg" alt="VHS Rave Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">VHS-Rave 興奮したお祭り</h3>
+                            <span class="release-type">Album</span>
+                        </div>
+                        <p class="album-meta">May 22, 2025 | 10 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'VHS-Rave 興奮したお祭り' moves away from the usual DnB and breakcore lane into alternative electronic music, rave energy, and industrial textures. The track names are intentionally loud and strange, and the album uses striking samples throughout. It was officially released on May 22, 2025."
+                                data-es="'VHS-Rave 興奮したお祭り' se aleja del estilo habitual de DnB y breakcore para entrar en música electrónica alternativa, energía rave y texturas industriales. Los nombres de las canciones son llamativos y fuera de lo común, y el álbum usa samples bastante marcados. Salió oficialmente el 22 de mayo de 2025.">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-vhs-rave">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-vhs-rave">
+                            <li class="track-item" data-src="assets/audio/vhs rave/My Ship.wav"><button class="play-btn" type="button" aria-label="Play My Ship">▶</button> 1. My Ship</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/H!pvnse!.wav"><button class="play-btn" type="button" aria-label="Play H!Pvnse!">▶</button> 2. H!Pvnse!</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/I Luv playing games.wav"><button class="play-btn" type="button" aria-label="Play I Luv Playing Games">▶</button> 3. I Luv Playing Games</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/Fvksophia.wav"><button class="play-btn" type="button" aria-label="Play Fvksophia">▶</button> 4. Fvksophia</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/Billie.wav"><button class="play-btn" type="button" aria-label="Play Billie">▶</button> 5. Billie</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/beavtypetit (Interlude).wav"><button class="play-btn" type="button" aria-label="Play Beavtypetit Interlude">▶</button> 6. Beavtypetit (Interlude)</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/私の唇を奪ってください.wav"><button class="play-btn" type="button" aria-label="Play Watashi no kuchibiru">▶</button> 7. 私の唇を奪ってください</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/Fvk U Stylo.wav"><button class="play-btn" type="button" aria-label="Play Fvk U Stylo">▶</button> 8. Fvk U Stylo</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/plisdvnt.wav"><button class="play-btn" type="button" aria-label="Play Plisdvnt">▶</button> 9. Plisdvnt</li>
+                            <li class="track-item" data-src="assets/audio/vhs rave/METRO rave.wav"><button class="play-btn" type="button" aria-label="Play Metro Rave">▶</button> 10. Metro Rave</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="disco-card" id="xanax-sober-pt2">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/xanax sober.jpg" alt="Xanax Sober Pt2 Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">Xanax Sober Pt. 2</h3>
+                            <span class="release-type">Album</span>
+                        </div>
+                        <p class="album-meta">Oct 14, 2025 | 19 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'Xanax Sober Pt. 2 is a bold and emotionally charged journey through DnB, Breakcore, and experimental electronic sound. Blending haunting melodies with aggressive breaks, the album pushes the boundaries of the genre. With collaborations from Mykoll, caffeinecrvsh, e c h o, and UTAGE, the project captures a raw and intense atmosphere — a reflection of inner conflict and growth. Completed on September 14, 2025.'"
+                                data-es="'Xanax Sober Pt. 2 es un viaje audaz y cargado de emociones a través del DnB, Breakcore y el sonido electrónico experimental. Combinando melodías inquietantes con ritmos agresivos, el álbum empuja los límites del género. Con colaboraciones de Mykoll, caffeinecrvsh, e c h o, y UTAGE, el proyecto captura una atmósfera cruda e intensa — un reflejo del conflicto interno y el crecimiento. Completado el 14 de septiembre de 2025.'">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-xanax-sober-pt2">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-xanax-sober-pt2">
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/Dream 4 real (INTRO).mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Dream 4 real INTRO">▶</button> 1. Dream 4 real (INTRO)</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/I WAS YOUR DAMN WORLD.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play I WAS YOUR DAMN WORLD">▶</button> 2. I WAS YOUR DAMN WORLD</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/VAMPIRE NITE.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play VAMPIRE NITE">▶</button> 3. VAMPIRE NITE</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/My head is rusting.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play My head is rusting">▶</button> 4. My head is rusting</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/G H O S T G I R L  FT. e c h o.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play G H O S T G I R L featuring e c h o">▶</button> 5. G H O S T G I R L FT. e c h o</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/YOUR FAVORITE FLOWERS.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play YOUR FAVORITE FLOWERS">▶</button> 6. YOUR FAVORITE FLOWERS</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/Superstition Is Cruel FT. Mykoll.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Superstition Is Cruel featuring Mykoll">▶</button> 7. Superstition Is Cruel FT. Mykoll</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/YEAH YEAH STARZ FT. Caffeinecrvsh.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play YEAH YEAH STARZ featuring Caffeinecrvsh">▶</button> 8. YEAH YEAH STARZ FT. Caffeinecrvsh</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/Chaotic minimarket.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Chaotic minimarket">▶</button> 9. Chaotic minimarket</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/You kisses tasted like candy to me.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play You kisses tasted like candy to me">▶</button> 10. You kisses tasted like candy to me</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/im sorry for the hurt... sweetheart.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play im sorry for the hurt sweetheart">▶</button> 11. im sorry for the hurt... sweetheart</li>
+                            <li class="track-item"
+                                data-src="assets/audio/xanaxsober2/Sad Circus (interlude) FT. UTAGE.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Sad Circus interlude featuring UTAGE">▶</button> 12. Sad Circus (interlude) FT. UTAGE</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/My Caramelized lips.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play My Caramelized lips">▶</button> 13. My Caramelized lips</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/Better I bury your corpse.mp3">
+                                <button class="play-btn" type="button" aria-label="Play Better I bury your corpse">▶</button> 14. Better I bury your corpse
+                            </li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/bitter kiss.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play bitter kiss">▶</button> 15. bitter kiss</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/No cigarrete.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play No cigarrete">▶</button> 16. No cigarrete</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/Xanax Sober.mp3"><button
+                                    class="play-btn" type="button" aria-label="Play Xanax Sober">▶</button> 17. Xanax Sober</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/garden stoner (OUTRO).mp3"><button
+                                    class="play-btn" type="button" aria-label="Play garden stoner OUTRO">▶</button> 18. garden stoner (OUTRO)</li>
+                            <li class="track-item" data-src="assets/audio/xanaxsober2/She looks at me and smiles.mp3">
+                                <button class="play-btn" type="button" aria-label="Play She looks at me and smiles">▶</button> 19. She looks at me and smiles
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="disco-card" id="kerosene-and-bleach">
+                    <div class="card-image-wrapper">
+                        <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach Cover" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <div class="album-title-row">
+                            <h3 class="album-title">kEROSENE AND BLEACH</h3>
+                            <span class="release-type">Album</span>
+                        </div>
+                        <p class="album-meta">Feb 16, 2026 | 8 Tracks</p>
+                        <div class="translation-block">
+                            <p class="album-desc"
+                                data-en="'kEROSENE AND BLEACH' continues the experimental line after the 'nirvana come from' era, built around unstable effects, amen breaks, chopping, and harsh edits. It keeps the catalog's distorted identity while pushing further into processed textures. The album was officially released on February 16, 2026."
+                                data-es="'kEROSENE AND BLEACH' sigue la línea experimental posterior a la era 'nirvana come from', usando efectos inestables, amen breaks, chopeo y ediciones agresivas. Mantiene la identidad distorsionada del catálogo mientras empuja más hacia texturas procesadas. El álbum salió oficialmente el 16 de febrero de 2026.">
+                            </p>
+                            <button class="translate-btn" type="button">See translation</button>
+                        </div>
+
+                        <button class="tracklist-toggle-btn" type="button" aria-expanded="false" aria-controls="tracklist-kerosene-and-bleach">View Tracklist</button>
+                        <ul class="tracklist" id="tracklist-kerosene-and-bleach">
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/Better On Me.wav"><button class="play-btn" type="button" aria-label="Play Better on Me">▶</button> 1. Better on Me</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/GOIN DOWN!.wav"><button class="play-btn" type="button" aria-label="Play Goin Down!">▶</button> 2. Goin Down!</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/Sprite.wav"><button class="play-btn" type="button" aria-label="Play Sprite">▶</button> 3. Sprite</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/BLEACH!.wav"><button class="play-btn" type="button" aria-label="Play B L E a C H!">▶</button> 4. B L E a C H!</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/APPARITION LUV.wav"><button class="play-btn" type="button" aria-label="Play Apparition Luv">▶</button> 5. Apparition Luv</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/Kerosene.wav"><button class="play-btn" type="button" aria-label="Play Kerosene">▶</button> 6. Kerosene</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/br4t.wav"><button class="play-btn" type="button" aria-label="Play Br4T">▶</button> 7. Br4T</li>
+                            <li class="track-item" data-src="assets/audio/kerosene&bleach/4EVER BETTER ON ME (BONUS TRACK).wav"><button class="play-btn" type="button" aria-label="Play 4Ever Better on Me">▶</button> 8. 4Ever Better on Me</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section collaborators-section">
+            <h2 class="section-title">COLLAB WIKI</h2>
+            <div class="collab-grid">
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/rabu.png" alt="rabu profile art">
+                    <div>
+                        <h3>rabu</h3>
+                        <p>Collaborator archive</p>
+                        <a href="https://www.youtube.com/@rabumybeloved/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/Doke.png" alt="Doke profile art">
+                    <div>
+                        <h3>Doke</h3>
+                        <p>Damaged circvits / Pain Post Mortem</p>
+                        <a href="https://www.youtube.com/@doke2321/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/Digital Losers.png" alt="Digital Losers profile art">
+                    <div>
+                        <h3>Digital Losers / Gordo Acido</h3>
+                        <p>Same collaborator alias. Stupid Acid / Pain Post Mortem</p>
+                        <a href="https://www.youtube.com/@digital_losers/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/e c h o.png" alt="e c h o profile art">
+                    <div>
+                        <h3>e c h o</h3>
+                        <p>G H O S T G I R L</p>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/Mykoll.png" alt="Mykoll profile art">
+                    <div>
+                        <h3>Mykoll</h3>
+                        <p>Superstition Is Cruel</p>
+                        <a href="https://www.youtube.com/@Mykoll-/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/UATGE.png" alt="UTAGE profile art">
+                    <div>
+                        <h3>UTAGE</h3>
+                        <p>Sad Circus (interlude)</p>
+                        <a href="https://www.youtube.com/@UTAGEsound/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+                <article class="collab-card">
+                    <img src="assets/wiki_colaborators_covers/caffeinecrvsh.png" alt="caffeinecrvsh profile art">
+                    <div>
+                        <h3>caffeinecrvsh</h3>
+                        <p>YEAH YEAH STARZ</p>
+                        <a href="https://www.youtube.com/@caffeinecrvsh/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <main class="page-panel art-page" data-page="artcxre" hidden>
+        <section class="section art-hero-section">
+            <p class="entry-kicker">ARTCXRE_FOLDER</p>
+            <h2 class="section-title">ARTCXRE</h2>
+            <p class="art-lead">Sketches, drawings, cover concepts, and visual fragments from the Unrealcxre world.</p>
+        </section>
+
+        <section class="section art-gallery-section">
+            <div class="art-grid">
+                <article class="art-card featured">
+                    <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach concept cover">
+                    <div class="art-caption">
+                        <h3>kEROSENE AND BLEACH</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/covers/Pain Post Mortem.jpg" alt="Pain Post Mortem concept cover">
+                    <div class="art-caption">
+                        <h3>Pain Post Mortem</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/covers/VHS-rave.jpg" alt="VHS Rave concept cover">
+                    <div class="art-caption">
+                        <h3>VHS Rave</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/covers/CXnibalism.jpg" alt="Cxnibalism Unbreakcore concept cover">
+                    <div class="art-caption">
+                        <h3>Cxnibalism Unbreakcore</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/covers/unreal wxrld.jpeg" alt="Unreal Wxrld concept cover">
+                    <div class="art-caption">
+                        <h3>Unreal Wxrld</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/covers/xanax sober.jpg" alt="Xanax Sober Pt. 2 concept cover">
+                    <div class="art-caption">
+                        <h3>Xanax Sober Pt. 2</h3>
+                        <p>Cover concept</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <canvas id="visualizer"></canvas>
+    </footer>
+
+    <div class="site-player" id="site-player" aria-hidden="true">
+        <div class="player-track-info">
+            <img id="player-cover" src="assets/covers/xanax sober.jpg" alt="" class="player-cover">
+            <div class="player-copy">
+                <strong id="player-title">Select a track</strong>
+                <span id="player-artist">Unrealcxre</span>
+            </div>
+        </div>
+
+        <div class="player-controls">
+            <div class="player-buttons">
+                <button class="seek-btn seek-back" type="button" aria-label="Rewind 10 seconds">-10</button>
+                <button class="volume-btn volume-down" type="button" aria-label="Lower volume">VOL -</button>
+                <button id="player-toggle" class="player-toggle" type="button" aria-label="Play current track">▶</button>
+                <button class="volume-btn volume-up" type="button" aria-label="Raise volume">VOL +</button>
+                <button class="seek-btn seek-forward" type="button" aria-label="Forward 10 seconds">+10</button>
+                <span class="volume-readout" aria-live="polite">80%</span>
+            </div>
+            <div class="player-progress-row">
+                <span class="curr-time">0:00</span>
+                <input type="range" class="track-progress" value="0" max="100" step="0.1" aria-label="Track progress">
+                <span class="tot-time">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
