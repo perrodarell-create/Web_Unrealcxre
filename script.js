@@ -1,6 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
     const PLAY_ICON = "▶";
     const PAUSE_ICON = "||";
+    const BOOT_DURATION = 4000;
+
+    // 0. Breakcore world loading sequence
+    const worldLoader = document.getElementById("world-loader");
+    const loaderBar = worldLoader?.querySelector(".loader-progress span");
+    const loaderPercent = worldLoader?.querySelector(".loader-percent");
+    const loaderStatus = worldLoader?.querySelector(".loader-status");
+    const loaderMessages = [
+        "generating amen breaks...",
+        "loading corrupted chunks...",
+        "planting digital flowers...",
+        "distorting archive textures...",
+        "spawning unreal world..."
+    ];
+    const bootStartedAt = performance.now();
+
+    const runWorldLoader = () => {
+        const elapsed = performance.now() - bootStartedAt;
+        const rawProgress = Math.min(1, elapsed / BOOT_DURATION);
+        const displayedProgress = Math.round((1 - Math.pow(1 - rawProgress, 1.55)) * 100);
+        const messageIndex = Math.min(
+            loaderMessages.length - 1,
+            Math.floor(rawProgress * loaderMessages.length)
+        );
+
+        if (loaderBar) loaderBar.style.width = `${displayedProgress}%`;
+        if (loaderPercent) loaderPercent.textContent = `${displayedProgress}%`;
+        if (loaderStatus) loaderStatus.textContent = loaderMessages[messageIndex];
+
+        if (rawProgress < 1) {
+            requestAnimationFrame(runWorldLoader);
+            return;
+        }
+
+        if (loaderBar) loaderBar.style.width = "100%";
+        if (loaderPercent) loaderPercent.textContent = "100%";
+        if (loaderStatus) loaderStatus.textContent = "world loaded // 175 bpm";
+        worldLoader?.classList.add("is-complete");
+        document.body.classList.remove("is-booting");
+        window.setTimeout(() => worldLoader?.remove(), 700);
+        window.dispatchEvent(new CustomEvent("unreal:boot-complete"));
+    };
+
+    requestAnimationFrame(runWorldLoader);
 
     // 1. Entry portal and page switching
     const entryScreen = document.getElementById("entry-screen");
@@ -31,6 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         entryScreen?.classList.add("hidden");
         entryScreen?.setAttribute("aria-hidden", "true");
         entryVideo?.pause();
+        bgAudio?.pause();
+        if (bgAudio) bgAudio.currentTime = 0;
+        setBgButtonState(false);
     };
 
     entryChoices.forEach(button => {
@@ -70,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const volumeDownBtn = sitePlayer.querySelector('.volume-down');
     const volumeUpBtn = sitePlayer.querySelector('.volume-up');
     const volumeReadout = sitePlayer.querySelector('.volume-readout');
+    const volumeRange = sitePlayer.querySelector('.volume-range');
 
     let isBgPlaying = false;
     let currentTrackItem = null;
@@ -78,6 +126,72 @@ document.addEventListener("DOMContentLoaded", () => {
     let analyser = null;
     let visualizerAnimation = null;
     let visualizerSources = [];
+    let introAudioWanted = true;
+    let uiAudioContext = null;
+
+    const getUiAudioContext = () => {
+        if (!uiAudioContext) {
+            uiAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (uiAudioContext.state === "suspended") {
+            uiAudioContext.resume().catch(() => {});
+        }
+        return uiAudioContext;
+    };
+
+    const playUiClick = (target) => {
+        const context = getUiAudioContext();
+        const now = context.currentTime;
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const isEntry = target.closest(".entry-choice");
+        const isTrack = target.closest(".play-btn, .track-item, #player-toggle");
+        const isUtility = target.closest(".translate-btn, .tracklist-toggle-btn");
+
+        oscillator.type = isEntry ? "sawtooth" : "square";
+        oscillator.frequency.setValueAtTime(isEntry ? 118 : isTrack ? 176 : isUtility ? 245 : 210, now);
+        oscillator.frequency.exponentialRampToValueAtTime(isEntry ? 72 : 92, now + 0.075);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(isEntry ? 0.075 : 0.045, now + 0.006);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.1);
+    };
+
+    const attemptIntroAudio = () => {
+        if (!introAudioWanted || entryScreen?.classList.contains("hidden")) return;
+        bgAudio.volume = playerVolume;
+        bgAudio.play()
+            .then(() => setBgButtonState(true))
+            .catch(() => {
+                setBgButtonState(false);
+            });
+    };
+
+    window.addEventListener("unreal:boot-complete", attemptIntroAudio, { once: true });
+
+    const unlockIntroAudio = () => {
+        attemptIntroAudio();
+        document.removeEventListener("pointerdown", unlockIntroAudio, true);
+        document.removeEventListener("keydown", unlockIntroAudio, true);
+    };
+
+    document.addEventListener("pointerdown", unlockIntroAudio, true);
+    document.addEventListener("keydown", unlockIntroAudio, true);
+
+    document.addEventListener("pointerdown", event => {
+        const interactive = event.target.closest("button, a, .track-item, input[type='range']");
+        if (!interactive) return;
+        playUiClick(interactive);
+    }, true);
+
+    document.addEventListener("click", event => {
+        if (event.detail !== 0) return;
+        const interactive = event.target.closest("button, a, .track-item");
+        if (interactive) playUiClick(interactive);
+    });
 
     const setBgButtonState = (isPlaying) => {
         isBgPlaying = isPlaying;
@@ -89,8 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
         playerVolume = Math.min(1, Math.max(0, Number(nextVolume.toFixed(2))));
         bgAudio.volume = playerVolume;
         trackAudio.volume = playerVolume;
+        const volumePercent = Math.round(playerVolume * 100);
         if (volumeReadout) {
-            volumeReadout.textContent = `${Math.round(playerVolume * 100)}%`;
+            volumeReadout.textContent = `${volumePercent}%`;
+        }
+        if (volumeRange) {
+            volumeRange.value = volumePercent;
+            volumeRange.style.setProperty("--range-progress", `${volumePercent}%`);
         }
     };
 
@@ -135,10 +254,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resetProgress = () => {
         progressBar.value = 0;
+        progressBar.style.setProperty("--range-progress", "0%");
         currTimeEl.textContent = "0:00";
         totTimeEl.textContent = "0:00";
         playerToggle.textContent = PLAY_ICON;
         playerToggle.setAttribute("aria-label", "Play current track");
+        sitePlayer.classList.remove("is-playing");
     };
 
     const setPlayerTrack = (item) => {
@@ -155,6 +276,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const setPlayerPlaybackState = (isPlaying) => {
         playerToggle.textContent = isPlaying ? PAUSE_ICON : PLAY_ICON;
         playerToggle.setAttribute("aria-label", isPlaying ? "Pause current track" : "Play current track");
+        sitePlayer.classList.toggle("is-playing", isPlaying);
+
+        document.querySelectorAll(".album-disc").forEach(disc => {
+            disc.classList.remove("is-playing");
+        });
+
+        if (isPlaying && currentTrackItem) {
+            currentTrackItem.closest(".disco-card")?.querySelector(".album-disc")?.classList.add("is-playing");
+        }
+    };
+
+    const playTrackAudio = (item) => {
+        const playRequest = trackAudio.play();
+        if (!playRequest) return;
+
+        playRequest.catch(error => {
+            console.error("Error reproduciendo track:", error);
+            item?.classList.remove("playing");
+            item?.classList.add("paused");
+            setTrackButtonState(item, false);
+            setPlayerPlaybackState(false);
+        });
     };
 
     const setupVisualizer = () => {
@@ -224,11 +367,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const x = index * barWidth;
                 const y = height - barHeight;
 
-                ctx.fillStyle = index % 5 === 0 ? "#ffffff" : "#B22222";
+                ctx.fillStyle = index % 5 === 0 ? "#e0e0e0" : "#FF003C";
                 ctx.fillRect(x, y, Math.max(1, barWidth - 2), barHeight);
             });
 
-            ctx.strokeStyle = "rgba(178, 34, 34, 0.65)";
+            ctx.strokeStyle = "rgba(255, 0, 60, 0.65)";
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(0, height - 1);
@@ -260,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lógica Fondo Principal
     playToggleBtn.addEventListener('click', () => {
+        introAudioWanted = !entryScreen?.classList.contains("hidden");
         if (isBgPlaying) {
             bgAudio.pause();
             setBgButtonState(false);
@@ -286,12 +430,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (currentTrackItem === this) {
                 if (trackAudio.paused) {
-                    trackAudio.play().catch(e => console.error("Error reproduciendo track:", e));
+                    playTrackAudio(this);
                     activateAudioEngine();
                     this.classList.remove("paused");
                     this.classList.add("playing");
                     setTrackButtonState(this, true);
-                    setPlayerPlaybackState(true);
                 } else {
                     trackAudio.pause();
                     this.classList.remove("playing");
@@ -308,24 +451,26 @@ document.addEventListener("DOMContentLoaded", () => {
             currTimeEl.textContent = "0:00";
             totTimeEl.textContent = "0:00";
             progressBar.value = 0;
+            progressBar.style.setProperty("--range-progress", "0%");
             setPlayerTrack(this);
 
             trackAudio.src = src;
-            trackAudio.play().catch(e => console.error("Error reproduciendo track:", e));
-            activateAudioEngine();
             currentTrackItem = this;
+            playTrackAudio(this);
+            activateAudioEngine();
 
             // Visual feedback
             clearTrackState();
             this.classList.add("playing");
             setTrackButtonState(this, true);
-            setPlayerPlaybackState(true);
         });
     });
 
     trackAudio.addEventListener('timeupdate', () => {
         if (trackAudio.duration) {
-            progressBar.value = (trackAudio.currentTime / trackAudio.duration) * 100;
+            const progress = (trackAudio.currentTime / trackAudio.duration) * 100;
+            progressBar.value = progress;
+            progressBar.style.setProperty("--range-progress", `${progress}%`);
             currTimeEl.textContent = formatTime(trackAudio.currentTime);
         }
     });
@@ -339,12 +484,36 @@ document.addEventListener("DOMContentLoaded", () => {
             currentTrackItem.classList.remove("playing", "paused");
             setTrackButtonState(currentTrackItem, false);
         }
+        setPlayerPlaybackState(false);
         resetProgress();
+    });
+
+    trackAudio.addEventListener("play", () => setPlayerPlaybackState(true));
+    trackAudio.addEventListener("pause", () => setPlayerPlaybackState(false));
+    trackAudio.addEventListener("waiting", () => {
+        if (!trackAudio.paused) sitePlayer.classList.add("is-buffering");
+    });
+    trackAudio.addEventListener("playing", () => {
+        sitePlayer.classList.remove("is-buffering");
+        setPlayerPlaybackState(true);
+    });
+    trackAudio.addEventListener("canplay", () => {
+        sitePlayer.classList.remove("is-buffering");
+    });
+    trackAudio.addEventListener("error", () => {
+        sitePlayer.classList.remove("is-buffering");
+        setPlayerPlaybackState(false);
+        if (currentTrackItem) {
+            currentTrackItem.classList.remove("playing");
+            currentTrackItem.classList.add("paused");
+            setTrackButtonState(currentTrackItem, false);
+        }
     });
 
     progressBar.addEventListener('input', (e) => {
         if (!trackAudio.duration) return;
         trackAudio.currentTime = (e.target.value / 100) * trackAudio.duration;
+        progressBar.style.setProperty("--range-progress", `${e.target.value}%`);
     });
 
     sitePlayer.addEventListener("click", (e) => {
@@ -364,6 +533,9 @@ document.addEventListener("DOMContentLoaded", () => {
     seekForwardBtn.addEventListener("click", () => seekBy(10));
     volumeDownBtn?.addEventListener("click", () => setVolume(playerVolume - 0.1));
     volumeUpBtn?.addEventListener("click", () => setVolume(playerVolume + 0.1));
+    volumeRange?.addEventListener("input", event => {
+        setVolume(Number(event.target.value) / 100);
+    });
 
     playerToggle.addEventListener("click", () => {
         if (!currentTrackItem) return;
@@ -374,12 +546,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (trackAudio.ended) {
                 trackAudio.currentTime = 0;
             }
-            trackAudio.play().catch(e => console.error("Error reproduciendo track:", e));
+            playTrackAudio(currentTrackItem);
             activateAudioEngine();
             currentTrackItem.classList.remove("paused");
             currentTrackItem.classList.add("playing");
             setTrackButtonState(currentTrackItem, true);
-            setPlayerPlaybackState(true);
         } else {
             trackAudio.pause();
             currentTrackItem.classList.remove("playing");
@@ -473,5 +644,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 setMiniPlaylistState(false);
             }
         });
+    });
+
+    // 7. Interactive archive covers: 3D flip, pointer glow and tactile click feedback
+    const archiveCards = document.querySelectorAll(".disco-card");
+
+    archiveCards.forEach((card, index) => {
+        const cover = card.querySelector(".card-image-wrapper");
+        const title = card.querySelector(".album-title")?.textContent.trim() || "Unknown archive";
+        const meta = card.querySelector(".album-meta")?.textContent.trim() || "Unrealcxre archive";
+        const type = card.querySelector(".release-type")?.textContent.trim() || "Release";
+        const tracks = card.querySelectorAll(".track-item").length;
+
+        if (cover) {
+            const back = document.createElement("div");
+            back.className = "card-back";
+            back.setAttribute("aria-hidden", "true");
+            back.innerHTML = `
+                <span class="card-back-code">FILE_${String(index + 1).padStart(2, "0")} // ${type}</span>
+                <strong class="card-back-title">${title}</strong>
+                <div class="card-back-stats">
+                    <span>${tracks || "--"} TRACKS</span>
+                    <span>175 SIGNAL</span>
+                </div>
+                <span class="card-back-hint">${meta}<br>click to return</span>
+            `;
+            cover.append(back);
+            cover.setAttribute("role", "button");
+            cover.setAttribute("tabindex", "0");
+            cover.setAttribute("aria-label", `Flip ${title} cover`);
+            cover.setAttribute("aria-pressed", "false");
+
+            const flipCover = () => {
+                const isFlipped = cover.classList.toggle("is-flipped");
+                cover.setAttribute("aria-pressed", String(isFlipped));
+                back.setAttribute("aria-hidden", String(!isFlipped));
+            };
+
+            cover.addEventListener("click", flipCover);
+            cover.addEventListener("keydown", event => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    flipCover();
+                }
+            });
+        }
+
+        card.addEventListener("pointermove", event => {
+            if (event.pointerType === "touch") return;
+
+            const bounds = card.getBoundingClientRect();
+            const x = event.clientX - bounds.left;
+            const y = event.clientY - bounds.top;
+            const normalizedX = x / bounds.width - 0.5;
+            const normalizedY = y / bounds.height - 0.5;
+
+            card.style.setProperty("--pointer-x", `${x}px`);
+            card.style.setProperty("--pointer-y", `${y}px`);
+            card.style.setProperty("--tilt-x", `${normalizedY * -3.5}deg`);
+            card.style.setProperty("--tilt-y", `${normalizedX * 4.5}deg`);
+        });
+
+        card.addEventListener("pointerleave", () => {
+            card.style.setProperty("--tilt-x", "0deg");
+            card.style.setProperty("--tilt-y", "0deg");
+        });
+    });
+
+    const revealTargets = document.querySelectorAll(
+        ".section-title, .smart-link, .disco-card, .collab-card, .art-card"
+    );
+
+    if ("IntersectionObserver" in window) {
+        revealTargets.forEach(target => target.classList.add("reveal-ready"));
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(target => revealObserver.observe(target));
+    }
+
+    document.addEventListener("pointerdown", event => {
+        if (!event.target.closest("button, a, .card-image-wrapper, .track-item")) return;
+
+        const burst = document.createElement("span");
+        burst.className = "click-burst";
+        burst.style.left = `${event.clientX}px`;
+        burst.style.top = `${event.clientY}px`;
+        document.body.append(burst);
+        burst.addEventListener("animationend", () => burst.remove(), { once: true });
     });
 });

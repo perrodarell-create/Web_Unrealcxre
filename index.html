@@ -9,14 +9,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Share+Tech+Mono&family=VT323&family=UnifrakturMaguntia&display=swap"
-        rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Gaegu:wght@300;400;700&family=Orbitron:wght@400;600;700;900&family=Rubik+Glitch&family=Share+Tech+Mono&family=VT323&family=UnifrakturMaguntia&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Gaegu:wght@300;400;700&family=Orbitron:wght@400;600;700;900&family=Rubik+Glitch&family=Share+Tech+Mono&family=VT323&family=UnifrakturMaguntia&display=swap"
+            rel="stylesheet">
+    </noscript>
 </head>
 
-<body>
+<body class="is-booting">
+    <!-- Boot / world loading screen -->
+    <section id="world-loader" class="world-loader" aria-label="Loading Unrealcxre world" aria-live="polite">
+        <div class="loader-noise" aria-hidden="true"></div>
+        <div class="loader-terminal">
+            <p class="loader-code">WORLD_SEED // UNREAL_175</p>
+            <h1 class="loader-title" data-text="LOADING WORLD">LOADING WORLD</h1>
+            <div class="loader-chunks" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="loader-progress" aria-hidden="true"><span></span></div>
+            <p class="loader-status">generating amen breaks...</p>
+            <p class="loader-percent">0%</p>
+        </div>
+    </section>
+
     <!-- Background Effects -->
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="scanlines" aria-hidden="true"></div>
+    <div class="jungle-background" aria-hidden="true">
+        <span class="cyber-orb orb-one"></span>
+        <span class="cyber-orb orb-two"></span>
+        <span class="cyber-orb orb-three"></span>
+        <span class="jungle-vine vine-left"></span>
+        <span class="jungle-vine vine-right"></span>
+        <span class="data-butterfly butterfly-one">×</span>
+        <span class="data-butterfly butterfly-two">+</span>
+    </div>
     <div class="motion-stickers" aria-hidden="true">
         <div class="motion-sticker sticker-amen">AMEN<br>BREAK</div>
         <div class="motion-sticker sticker-bpm">175<br>BPM</div>
@@ -127,12 +157,21 @@
         </section>
 
         <section class="section discography-section">
-            <h2 class="section-title">ARCHIVES</h2>
+            <div class="archive-heading">
+                <div>
+                    <p class="section-eyebrow">UNREAL_LIBRARY // 175 BPM</p>
+                    <h2 class="section-title">ARCHIVES</h2>
+                </div>
+                <p class="archive-instruction"><span>↻</span> toca una portada para explorarla</p>
+            </div>
             <div class="cards-container">
 
                 <article class="disco-card" id="pain-post-mortem">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/Pain Post Mortem.jpg" alt="Pain Post Mortem Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/Pain Post Mortem.jpg" alt="Pain Post Mortem Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -168,8 +207,11 @@
 
                 <!-- Card 1 -->
                 <article class="disco-card" id="unreal-wxrld">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/unreal wxrld.jpeg" alt="Unreal Wxrld Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/unreal wxrld.jpeg" alt="Unreal Wxrld Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -214,8 +256,11 @@
                 </article>
 
                 <article class="disco-card" id="canibalism-unbreakcore">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/CXnibalism.jpg" alt="Canibalism Unbreakcore Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/CXnibalism.jpg" alt="Canibalism Unbreakcore Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -244,8 +289,11 @@
                 </article>
 
                 <article class="disco-card" id="vhs-rave">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/VHS-rave.jpg" alt="VHS Rave Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/VHS-rave.jpg" alt="VHS Rave Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -279,8 +327,11 @@
 
                 <!-- Card 2 -->
                 <article class="disco-card" id="xanax-sober-pt2">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/xanax sober.jpg" alt="Xanax Sober Pt2 Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/xanax sober.jpg" alt="Xanax Sober Pt2 Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -349,8 +400,11 @@
                 </article>
 
                 <article class="disco-card" id="kerosene-and-bleach">
-                    <div class="card-image-wrapper">
-                        <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach Cover" class="card-img">
+                    <div class="album-visual">
+                        <img src="assets/ui/unreal-disc.png" alt="" class="album-disc" aria-hidden="true">
+                        <div class="card-image-wrapper">
+                            <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach Cover" class="card-img">
+                        </div>
                     </div>
                     <div class="card-content">
                         <div class="album-title-row">
@@ -415,6 +469,8 @@
                     <div>
                         <h3>e c h o</h3>
                         <p>G H O S T G I R L</p>
+                        <a href="https://www.youtube.com/@llscryll/videos" target="_blank"
+                            rel="noopener noreferrer">YouTube</a>
                     </div>
                 </article>
                 <article class="collab-card">
@@ -454,7 +510,47 @@
 
         <section class="section art-gallery-section">
             <div class="art-grid">
-                <article class="art-card featured">
+                <article class="art-card art-card-wide">
+                    <img src="assets/artcxre/ChatGPT Image 27 abr 2026, 03_20_51.png"
+                        alt="Monochrome missing fairy illustration" loading="lazy">
+                    <div class="art-caption">
+                        <h3>Missing Fairy</h3>
+                        <p>Visual fragment // monochrome study</p>
+                    </div>
+                </article>
+                <article class="art-card art-card-featured">
+                    <img src="assets/artcxre/Gemini_Generated_Image_t7hb20t7hb20t7hb.png"
+                        alt="Unrealcxre character smoking illustration" loading="lazy">
+                    <div class="art-caption">
+                        <h3>Smoke Signal</h3>
+                        <p>Character study // Unreal archive</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/artcxre/Unrealcxre - 2026-06-21T221232.908.jpg"
+                        alt="Blonde character sitting with a cigarette and flip phone" loading="lazy">
+                    <div class="art-caption">
+                        <h3>Disconnected</h3>
+                        <p>Digital illustration // 2026</p>
+                    </div>
+                </article>
+                <article class="art-card">
+                    <img src="assets/artcxre/ChatGPT Image 21 jun 2026, 03_15_20 p.m..png"
+                        alt="Character design with heart hand gesture" loading="lazy">
+                    <div class="art-caption">
+                        <h3>Heart Signal</h3>
+                        <p>Character design</p>
+                    </div>
+                </article>
+                <article class="art-card art-card-portrait">
+                    <img src="assets/artcxre/897ab120-12d7-439e-8616-495d4f3163d0.png"
+                        alt="Sketchbook page with flowers, hands and character studies" loading="lazy">
+                    <div class="art-caption">
+                        <h3>Sketchbook 01</h3>
+                        <p>Traditional drawings // archive scan</p>
+                    </div>
+                </article>
+                <article class="art-card">
                     <img src="assets/covers/Kerosene&Bleach.jpg" alt="Kerosene and Bleach concept cover">
                     <div class="art-caption">
                         <h3>kEROSENE AND BLEACH</h3>
@@ -516,17 +612,21 @@
         <div class="player-controls">
             <div class="player-buttons">
                 <button class="seek-btn seek-back" type="button" aria-label="Rewind 10 seconds">-10</button>
-                <button class="volume-btn volume-down" type="button" aria-label="Lower volume">VOL -</button>
                 <button id="player-toggle" class="player-toggle" type="button" aria-label="Play current track">▶</button>
-                <button class="volume-btn volume-up" type="button" aria-label="Raise volume">VOL +</button>
                 <button class="seek-btn seek-forward" type="button" aria-label="Forward 10 seconds">+10</button>
-                <span class="volume-readout" aria-live="polite">80%</span>
             </div>
             <div class="player-progress-row">
                 <span class="curr-time">0:00</span>
                 <input type="range" class="track-progress" value="0" max="100" step="0.1" aria-label="Track progress">
                 <span class="tot-time">0:00</span>
             </div>
+        </div>
+
+        <div class="player-volume" aria-label="Volume controls">
+            <button class="volume-btn volume-down" type="button" aria-label="Lower volume">−</button>
+            <input type="range" class="volume-range" value="80" min="0" max="100" step="1" aria-label="Volume">
+            <button class="volume-btn volume-up" type="button" aria-label="Raise volume">+</button>
+            <span class="volume-readout" aria-live="polite">80%</span>
         </div>
     </div>
 
